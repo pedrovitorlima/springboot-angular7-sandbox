@@ -1,0 +1,1 @@
+insert into user values(1, 'bruce.dickinson', 'bruce.dickinson');
