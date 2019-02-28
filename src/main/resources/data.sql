@@ -1,3 +1,5 @@
+insert into user values(1, 'bruce.dickinson', 'bruce.dickinson');
+
 insert into cars(id, name, giphy_url) values (1, 'Sandero', 'top-gear-james-may-MwAwJp223HQaI');
 insert into cars(id, name, giphy_url) values (2, 'Fox', 'foxes-Kt3lpGbEkM8i4');
 insert into cars(id, name, giphy_url) values (3, 'Gol', 'univisiondeportes-chile-ca2016-copa-america-centenario-26BRN3E8QvX3xabhm');
