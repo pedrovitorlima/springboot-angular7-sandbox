@@ -21,6 +21,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.pedro.sandbox.springboot.angular7.security.domain.Credentials;
 import br.pedro.sandbox.springboot.angular7.security.domain.JwtConfig;
+import br.pedro.sandbox.springboot.angular7.security.domain.User;
+import br.pedro.sandbox.springboot.angular7.security.repository.UserRepository;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -49,7 +51,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter{
 					new UsernamePasswordAuthenticationToken(creds.getUsername(), creds.getPassword(), Collections.emptyList());
 			return authManager.authenticate(authToken);
 		}catch(IOException e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException("Invalid credentials.");
 		}
 	}
 	
@@ -69,6 +71,16 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter{
 		
 		//Bearer <token>
 		response.addHeader(jwtConfig.getHeader(), jwtConfig.getPrefix().concat(token));
+		response.setContentType("application/json");
+		
+		StringBuilder jsonResponse = new StringBuilder();
+		jsonResponse
+			.append("{")
+				.append("\"accessToken\": \"Bearer ").append(token).append("\",")
+				.append("\"username\" : \"").append(auth.getName()).append("\"")
+			.append("}");
+			
+		response.getWriter().write(jsonResponse.toString());
 		
 	}
 	
